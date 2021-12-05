@@ -113,6 +113,9 @@ Start:
 status:="Start"
 GuiControl,Enabled,StopButton
 GuiControl,Disabled,StartButton
+While (status=="Stop"){
+	return
+}
 While (status=="Start"){
 	while (fishing=="shiny")
 	{
@@ -209,6 +212,7 @@ While (status=="Start"){
 
 Stop:
 	status:="Stop"
+	fishing:="Stop"
 	GuiControl,Enabled,StartButton
 	GuiControl,Disabled,StopButton
 return

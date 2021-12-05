@@ -31,7 +31,7 @@ Gui,Add,Button,x10 y170 h25 w80 Disabled vSelectEquipmentButton gSelectEquipment
 Gui,Add,Edit,x+10 h25 w100 Disabled vEquipmentEdit
 Gui,Add,Button,x10 y+15 w90 h35 gStart vStartButton,Start
 Gui,Add,Button,x+10 w90 h35 Disabled vStopButton gStop,Stop
-gui,show,,Growtopia fish
+gui,show,,GarbelFish
 fishing := "shiny"
 return
 

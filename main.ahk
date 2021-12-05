@@ -17,7 +17,7 @@
 #NoEnv
 #SingleInstance Off
 #NoTrayIcon
-#Include, Gdip.ahk
+#Include Gdip.ahk
 
 Gui,Add,Button,x10 y10 w80 h25 gSelectWindow,Select Window
 Gui,Add,Edit,x+10 h25 w100 vWindow

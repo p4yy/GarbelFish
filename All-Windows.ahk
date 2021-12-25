@@ -17,6 +17,8 @@
 #NoEnv
 #SingleInstance Off
 #NoTrayIcon
+;#Include Gdip.ahk
+
 Gui,Add,Button,x10 y10 w80 h25 gSelectWindow,Select Window
 Gui,Add,Edit,x+10 h25 w100 vWindow
 Gui,Add,Button,x10 y+10 w80 h25 gSelectWater,Select WATER
@@ -108,11 +110,18 @@ return
 
 
 Start:
-	status:="Start"
-	GuiControl,Enabled,StopButton
-	GuiControl,Disabled,StartButton
-	While (status=="Start"){
-		while (fishing=="shiny")
+status:="Start"
+GuiControl,Enabled,StopButton
+GuiControl,Disabled,StartButton
+While (status=="Stop")
+{
+	return
+}
+While (status=="Start")
+{
+	while (fishing=="shiny")
+	{
+		while (status=="Start")
 		{
 			ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-shiny\captha.png
 			If (ErrorLevel = 2){
@@ -132,9 +141,9 @@ Start:
 				Sleep,0
 			}
 			Else{
-				ControlClick,,ahk_pid %Window%,,Left,1,X%Bait1X% Y%Bait1Y% NA
+				ControlClick,,ahk_pid %Window%,,Left,1,X%BaitX% Y%BaitY% NA
 				Sleep,2000
-				ControlClick,,ahk_pid %Window%,,Left,1,X%water1X% Y%Water1Y% NA 
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA 
 				Sleep,2500
 			}
 			ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-shiny\block.png
@@ -142,71 +151,76 @@ Start:
 				Sleep,0
 			} 
 			Else If (ErrorLevel = 1){
-				ControlClick,,ahk_pid %Window%,,Left,1,X%water1X% Y%Water1Y% NA 
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA 
 				Sleep,2500
-				ControlClick,,ahk_pid %Window%,,Left,1,X%water1X% Y%Water1Y% NA  
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA  
 				Sleep,3000
 			}
 			Else{
 				Sleep,0
 			}
-			}
-			}
-		while (fishing=="deto"){
+		}
+	}
+	while (fishing=="deto")
+	{
+		while (status=="Start")
+		{
 			ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\captha.png
-				If (ErrorLevel = 2){
-					Sleep,0
-				} 
-				Else If (ErrorLevel = 1){
-					Sleep,0
-				}
-				Else{
-					ControlSend,,{escape},ahk_pid %Window%
-				}
-				ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\deto.png
-				If (ErrorLevel = 2){
-					Sleep,0
-				}
-				Else If (ErrorLevel = 1){
-					Sleep,0
-				}
-				Else{
-					ControlClick,,ahk_pid %Window%,,Left,1,X%Equipment2X% Y%Equipment2Y% NA
-					Sleep,1000
-					ControlClick,,ahk_pid %Window%,,Left,1,X%water2X% Y%Water2Y% NA
-					Sleep,2000
-					ControlClick,,ahk_pid %Window%,,Left,1,X%Bait2X% Y%Bait2Y% NA 
-					Sleep,1000
-					ControlClick,,ahk_pid %Window%,,Left,1,X%water2X% Y%Water2Y% NA 
-					Sleep,3000
-				}
-				ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\water-deto.png
-				If (ErrorLevel = 2){
-					Sleep,0
-				} 
-				Else If (ErrorLevel = 1){
-					Sleep,0
-				}
-				Else{
-					ControlClick,,ahk_pid %Window%,,Left,1,X%Bait2X% Y%Bait2Y% NA
-					Sleep,2000
-					ControlClick,,ahk_pid %Window%,,Left,1,X%water2X% Y%Water2Y% NA 
-					Sleep,2500
-				}
-				ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\block.png
-				If (ErrorLevel = 2){
-					Sleep,0
-				} 
-				Else If (ErrorLevel = 1){
-					ControlClick,,ahk_pid %Window%,,Left,1,X%water2X% Y%Water2Y% NA 
-					Sleep,2500
-					ControlClick,,ahk_pid %Window%,,Left,1,X%water2X% Y%Water2Y% NA  
-					Sleep,3000
-				}
-				Else{
-					Sleep,0
-				}
-				}
+			If (ErrorLevel = 2){
+				Sleep,0
+			} 
+			Else If (ErrorLevel = 1){
+				Sleep,0
+			}
+			Else{
+				ControlSend,,{escape},ahk_pid %Window%
+			}
+			ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\deto.png
+			If (ErrorLevel = 2){
+				Sleep,0
+			}
+			Else If (ErrorLevel = 1){
+				Sleep,0
+			}
+			Else{
+				ControlClick,,ahk_pid %Window%,,Left,1,X%EquipmentX% Y%EquipmentY% NA
+				Sleep,1000
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA
+				Sleep,2000
+				ControlClick,,ahk_pid %Window%,,Left,1,X%BaitX% Y%BaitY% NA 
+				Sleep,1000
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA 
+				Sleep,3000
+			}
+			ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\water-deto.png
+			If (ErrorLevel = 2){
+				Sleep,0
+			} 
+			Else If (ErrorLevel = 1){
+				Sleep,0
+			}
+			Else{
+				ControlClick,,ahk_pid %Window%,,Left,1,X%BaitX% Y%BaitY% NA
+				Sleep,2000
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA 
+				Sleep,2500
+			}
+			ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, image-deto\block.png
+			If (ErrorLevel = 2){
+				Sleep,0
+			} 
+			Else If (ErrorLevel = 1){
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA 
+				Sleep,2500
+				ControlClick,,ahk_pid %Window%,,Left,1,X%waterX% Y%WaterY% NA  
+				Sleep,3000
+			}
+			Else{
+				Sleep,0
+			}
+		}
+	}
+}
 return
 
 Stop:
